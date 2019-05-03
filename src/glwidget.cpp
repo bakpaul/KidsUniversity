@@ -4,11 +4,13 @@
 #include <QPainter>
 #include <QTimer>
 
-GLWidget::GLWidget(Helper *helper, QWidget *parent)
-    : QOpenGLWidget(parent), helper(helper)
+GLWidget::GLWidget(Helper *_helper, QWidget *_parent)
+    : QOpenGLWidget(_parent), helper(_helper)
 {
-     m_begin = std::chrono::high_resolution_clock::now();
-    setFixedSize(1800,1000);
+    setMinimumSize(200,150);
+    setMaximumSize(2000,2000);
+    m_begin = std::chrono::high_resolution_clock::now();
+
     setAutoFillBackground(false);
 }
 
@@ -18,11 +20,11 @@ void GLWidget::animate()
     update();
 }
 
-void GLWidget::paintEvent(QPaintEvent *event)
+void GLWidget::paintEvent(QPaintEvent *_event)
 {
     QPainter painter;
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    helper->paint(&painter, event, m_elapsed);
+    helper->paint(&painter, _event, m_elapsed);
     painter.end();
 }

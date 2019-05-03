@@ -12,13 +12,13 @@ class GLWidget : public QOpenGLWidget
     //Q_OBJECT
 
 public:
-    GLWidget(Helper *helper, QWidget *parent);
+    GLWidget(Helper *_helper, QWidget *_parent);
 
 public slots:
     void animate();
 
 protected:
-    void paintEvent(QPaintEvent *event) override;
+    void paintEvent(QPaintEvent *_event) override;
 
 private:
     Helper *helper;

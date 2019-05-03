@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     fmt.setSamples(4);
     QSurfaceFormat::setDefaultFormat(fmt);
 
-    Window window(0.017,1600);
+    Window window(argc, argv);
     window.show();
     return app.exec();
 }

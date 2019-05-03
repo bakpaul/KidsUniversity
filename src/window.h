@@ -11,7 +11,8 @@ class Window : public QWidget
    // Q_OBJECT
 
 public:
-    Window(double freq, double length);
+    Window(int, char**);
+
 
 private:
     Helper helper;

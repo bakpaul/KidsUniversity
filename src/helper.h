@@ -6,29 +6,19 @@
 #include <QPen>
 #include <QWidget>
 #include <QSoundEffect>
+#include "baseObj2Draw.h"
 
 class Helper
 {
 public:
-    Helper(double frequency,double);
+    Helper(int, char**);
 
 public:
     void paint(QPainter *painter, QPaintEvent *event, long long elapsed);
 
 private:
+    std::vector<baseObj2Draw*> m_obj2Draw;
     QBrush background;
-    QBrush circleBrush;
-    QFont textFont;
-    QPen circlePen;
-    QPen textPen;
-    QPen m_linePen;
-    QSoundEffect tic;
-    QSoundEffect tac;
-    long m_period;
-    bool m_state;
-    long m_elapsed;
-    long long m_length;
-
 };
 
 #endif
