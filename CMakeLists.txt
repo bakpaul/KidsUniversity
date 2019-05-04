@@ -11,6 +11,10 @@ FILE(GLOB_RECURSE SOURCE_FILES
     "src/*.cpp"
     "main.cpp"
 )
-add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
+
+FILE(GLOB_RECURSE CONFIG_FILES
+    "ConfigFiles/*.txt"
+)
+add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES} ${CONFIG_FILES} )
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Core Qt5::OpenGL Qt5::Multimedia )
 
