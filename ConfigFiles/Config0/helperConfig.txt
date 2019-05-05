@@ -1,3 +1,3 @@
-2
+period 2
 robot /home/paul/dev/Perso/KidsUniversity/ConfigFiles/Config0/robotConfig.txt
 parcours /home/paul/dev/Perso/KidsUniversity/ConfigFiles/Config0/parcoursConfig.txt

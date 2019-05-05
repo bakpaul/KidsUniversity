@@ -12,6 +12,7 @@
 #include <string>
 #include "parcours.h"
 #include "robot.h"
+#include "controller.h"
 
 typedef struct config
 {
@@ -28,8 +29,8 @@ public:
 
     void paint(QPainter *painter, QPaintEvent *event, long long elapsed);
     config configuration(int,char**);
-    void nextStep(parcours _parcours,robot _robot);
 
+    std::shared_ptr<controller> m_controller;
 private:
     std::vector<std::shared_ptr<baseObj2Draw>> m_obj2Draw;
     QBrush background;

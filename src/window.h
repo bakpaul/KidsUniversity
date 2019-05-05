@@ -13,6 +13,7 @@ class Window : public QWidget
 public:
     Window(int, char**);
 
+    void keyPressEvent(QKeyEvent *_event) override;
 
 private:
     Helper helper;

@@ -2,6 +2,7 @@
 #define GLWIDGET_H
 
 #include <QOpenGLWidget>
+#include <QKeyEvent>
 #include <chrono>
 #include <ctime>
 
@@ -19,7 +20,6 @@ public slots:
 
 protected:
     void paintEvent(QPaintEvent *_event) override;
-
 private:
     Helper *helper;
 
