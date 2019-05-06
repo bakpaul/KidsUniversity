@@ -9,6 +9,8 @@
 #include <QPen>
 #include <QWidget>
 
+#define RATIO_FACTOR 1.58
+
 class baseObj2Draw
 {
 public:

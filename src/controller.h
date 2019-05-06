@@ -9,6 +9,7 @@
 #include <QFont>
 #include <QPen>
 #include <QBrush>
+#include <QPixmap>
 
 
 class controller : public baseObj2Draw
@@ -27,4 +28,5 @@ private:
     std::shared_ptr<parcours> m_parcours;
     int m_score;
     std::queue<int> m_instruction;
+    QPixmap m_scoreIcon;
 };

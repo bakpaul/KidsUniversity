@@ -17,7 +17,7 @@ Window::Window(int _a, char** _c) : helper(_a,_c)
 
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, openGL, &GLWidget::animate);
-    timer->start(1);
+    timer->start(20);
 }
 
 

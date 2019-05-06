@@ -38,7 +38,7 @@ parcours::parcours(std::string _fileName)
     m_brush.push_back(QBrush(Qt::white));
     m_brush.push_back(QBrush(Qt::white));
     m_brush.push_back(QBrush(QColor(250,90,70)));
-    m_scale = 0.9;
+    m_scale = 0.95;
     m_offsetFromCenter = QPointF(-2,0);
     std::cout<<"Parcours : "<<std::endl;
     std::cout<<m_map;
@@ -46,7 +46,9 @@ parcours::parcours(std::string _fileName)
 
 void parcours::draw(QPainter *_painter, QPaintEvent *_event, long long _elapsed)
 {
-    int carreSize = std::min(((double) _event->rect().width())/m_map[0].size(),((double) _event->rect().height())/m_map.size())*m_scale;
+
+    double ratio_factor_ratio = fmin(1,(((double)_event->rect().width())/(_event->rect().height()))/RATIO_FACTOR);
+    int carreSize = std::min(((double) _event->rect().width())/m_map[0].size()/ratio_factor_ratio,((double) _event->rect().height()*ratio_factor_ratio)/m_map.size())*0.95;
     m_carreSize = carreSize;
 
     for(int i=0;i<m_map.size();i++)
@@ -55,7 +57,7 @@ void parcours::draw(QPainter *_painter, QPaintEvent *_event, long long _elapsed)
         {
             _painter->save();
             _painter->translate(_event->rect().width()/2.0+carreSize*m_offsetFromCenter.x(), _event->rect().height()/2.0+carreSize*m_offsetFromCenter.y());
-            m_font.setPixelSize(carreSize*0.95);
+            m_font.setPixelSize(carreSize);
             _painter->setFont(m_font);
             _painter->setPen(m_pen[m_map[i][j]]);
             _painter->setBrush(m_brush[m_map[i][j]]);
