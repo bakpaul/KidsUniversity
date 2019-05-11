@@ -42,7 +42,9 @@ parcours::parcours(std::string _fileName)
     m_offsetFromCenter = QPointF(0,0);
     std::cout<<"Parcours : "<<std::endl;
     std::cout<<m_map;
+
 }
+
 
 void parcours::draw(QPainter *_painter, QPaintEvent *_event, long long _elapsed)
 {
@@ -52,7 +54,6 @@ void parcours::draw(QPainter *_painter, QPaintEvent *_event, long long _elapsed)
     double remaining_h  = ratio_factor_ratio*0.95*_event->rect().height();
     int carreSize = std::min(remaining_w/m_map[0].size(),remaining_h/m_map.size());
     m_carreSize = carreSize;
-
     for(int i=0;i<m_map.size();i++)
     {
         for(int j=0;j<m_map[0].size();j++)
@@ -64,6 +65,11 @@ void parcours::draw(QPainter *_painter, QPaintEvent *_event, long long _elapsed)
             _painter->setPen(m_pen[m_map[i][j]]);
             _painter->setBrush(m_brush[m_map[i][j]]);
             _painter->translate((j-(m_map[0].size())/2.0)*carreSize,(i-(m_map.size())/2.0)*carreSize );
+            if(!j&&!i)
+            {
+                m_origin.setX((j-(m_map[0].size())/2.0)*carreSize+remaining_w/2.0);
+                m_origin.setY((i-(m_map.size())/2.0)*carreSize + _event->rect().height()/2.0);
+            }
             _painter->drawRect(0,0,carreSize,carreSize);
             if(m_map[i][j]==2)
             {

@@ -9,18 +9,21 @@
 #include <QFont>
 #include <QPen>
 #include <QBrush>
-#include <QPixmap>
+#include <QImage>
 
 
 class controller : public baseObj2Draw
 {
 public:
-    controller(std::shared_ptr<robot>, std::shared_ptr<parcours>);
+    controller(std::string,std::shared_ptr<robot>, std::shared_ptr<parcours>);
     virtual ~controller();
     virtual void draw(QPainter *painter, QPaintEvent *event, long long elapsed);
+    void initRobotPosition();
     void addInstructions(int _instruc);
     void executeInstructions();
     void findNextInstructions();
+    int getValueFromInstruction(int _instr);
+    void setNewPositionFromInstruction(int _instr);
     QString instrunction2char(int _i);
 
 private:
@@ -28,5 +31,5 @@ private:
     std::shared_ptr<parcours> m_parcours;
     int m_score;
     std::queue<int> m_instruction;
-    QPixmap m_scoreIcon;
+    QImage m_scoreIcon;
 };

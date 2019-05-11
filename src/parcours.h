@@ -23,6 +23,7 @@ public:
     QPointF m_offsetFromCenter;
     double m_scale;
     int m_carreSize;
+    QPointF m_origin;
     int m_height;
     int m_width;
 };

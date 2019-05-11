@@ -28,8 +28,9 @@ Helper::Helper(int _a, char**_b )
     std::cout<<conf;
     std::shared_ptr<baseObj2Draw> tempParcours(new parcours(conf.parcoursConfig));
     std::shared_ptr<baseObj2Draw> tempRobot(new robot(conf.robotConfig));
-    std::shared_ptr<controller> tempCont(new controller(std::shared_ptr<robot>(static_cast<robot*>(tempRobot.get())),std::shared_ptr<parcours>(static_cast<parcours*>(tempParcours.get()))));
+    std::shared_ptr<controller> tempCont(new controller(conf.controllerConfig,std::shared_ptr<robot>(static_cast<robot*>(tempRobot.get())),std::shared_ptr<parcours>(static_cast<parcours*>(tempParcours.get()))));
     m_controller = tempCont;
+    tempCont->initRobotPosition();
     std::shared_ptr<baseObj2Draw> tempCont2(tempCont.get());
     m_obj2Draw.push_back(tempParcours);
     m_obj2Draw.push_back(tempRobot);
@@ -57,6 +58,8 @@ config Helper::configuration(int _a,char** _b)
                     file>>returnObj.parcoursConfig;
                 else if(tempStr=="period")
                     file >> returnObj.period;
+                else if(tempStr=="controller")
+                    file >> returnObj.controllerConfig;
                 else
                 {
                     file>>tempStr;

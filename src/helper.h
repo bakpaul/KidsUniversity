@@ -18,6 +18,7 @@ typedef struct config
 {
     std::string robotConfig;
     std::string parcoursConfig;
+    std::string controllerConfig;
     std::vector<std::string> objConfig;
     double period;
 } config;

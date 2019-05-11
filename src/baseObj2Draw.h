@@ -8,8 +8,18 @@
 #include <QFont>
 #include <QPen>
 #include <QWidget>
+#include <memory>
+#include <QPainter>
 
 #define RATIO_FACTOR 1.58
+
+typedef struct
+{
+    std::pair<int,int> up;
+    std::pair<int,int> down;
+    std::pair<int,int> left;
+    std::pair<int,int> right;
+} camStruct;
 
 class baseObj2Draw
 {
