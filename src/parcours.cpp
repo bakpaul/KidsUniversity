@@ -39,7 +39,7 @@ parcours::parcours(std::string _fileName)
     m_brush.push_back(QBrush(Qt::white));
     m_brush.push_back(QBrush(QColor(250,90,70)));
     m_scale = 0.95;
-    m_offsetFromCenter = QPointF(-2,0);
+    m_offsetFromCenter = QPointF(0,0);
     std::cout<<"Parcours : "<<std::endl;
     std::cout<<m_map;
 }
@@ -48,7 +48,9 @@ void parcours::draw(QPainter *_painter, QPaintEvent *_event, long long _elapsed)
 {
 
     double ratio_factor_ratio = fmin(1,(((double)_event->rect().width())/(_event->rect().height()))/RATIO_FACTOR);
-    int carreSize = std::min(((double) _event->rect().width())/m_map[0].size()/ratio_factor_ratio,((double) _event->rect().height()*ratio_factor_ratio)/m_map.size())*0.95;
+    double remaining_w  = _event->rect().width()-0.95*(1/3.0+1/9.0)*_event->rect().height()*ratio_factor_ratio;
+    double remaining_h  = ratio_factor_ratio*0.95*_event->rect().height();
+    int carreSize = std::min(remaining_w/m_map[0].size(),remaining_h/m_map.size());
     m_carreSize = carreSize;
 
     for(int i=0;i<m_map.size();i++)
@@ -56,20 +58,20 @@ void parcours::draw(QPainter *_painter, QPaintEvent *_event, long long _elapsed)
         for(int j=0;j<m_map[0].size();j++)
         {
             _painter->save();
-            _painter->translate(_event->rect().width()/2.0+carreSize*m_offsetFromCenter.x(), _event->rect().height()/2.0+carreSize*m_offsetFromCenter.y());
+            _painter->translate(remaining_w/2.0, _event->rect().height()/2.0);
             m_font.setPixelSize(carreSize);
             _painter->setFont(m_font);
             _painter->setPen(m_pen[m_map[i][j]]);
             _painter->setBrush(m_brush[m_map[i][j]]);
-            _painter->translate((j-static_cast<int>(m_map[0].size())/2)*carreSize,(i-static_cast<int>(m_map.size())/2)*carreSize );
-            _painter->drawRect(-carreSize/2,-carreSize/2,carreSize,carreSize);
+            _painter->translate((j-(m_map[0].size())/2.0)*carreSize,(i-(m_map.size())/2.0)*carreSize );
+            _painter->drawRect(0,0,carreSize,carreSize);
             if(m_map[i][j]==2)
             {
-                _painter->drawText(QRect(-carreSize/2,-carreSize/2,carreSize,carreSize), Qt::AlignCenter, "D");
+                _painter->drawText(QRect(0,0,carreSize,carreSize), Qt::AlignCenter, "D");
             }
             else if(m_map[i][j]==3)
             {
-                _painter->drawText(QRect(-carreSize/2,-carreSize/2,carreSize,carreSize), Qt::AlignCenter, "A");
+                _painter->drawText(QRect(0,0,carreSize,carreSize), Qt::AlignCenter, "A");
             }
             _painter->restore();
         }
