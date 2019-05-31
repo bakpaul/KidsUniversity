@@ -24,11 +24,12 @@ Window::Window(int _a, char** _c) : helper(_a,_c)
     timer->start(100);
 
     std::string autom = "a";
+    //simpleSolver _solver;
+    m_tempSolver = std::shared_ptr<solver>(new simpleSolver());
     if(!strcmp(_c[_a-1],autom.c_str()))
     {
-        m_SolverThread = new std::thread(automThread,this,std::shared_ptr<solver>(&tempSolver));
+        m_SolverThread = new std::thread(automThread,this,m_tempSolver);
         m_SolverThread->detach();
-
     }
 }
 

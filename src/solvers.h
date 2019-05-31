@@ -28,4 +28,11 @@ public:
     std::vector<int> lookingOrder(QPoint _directions);
 
 };
+
+class graphSolver : public solver
+{
+public:
+    graphSolver(){}
+    virtual instructions calculProchainesInstructions(camStruct _camInformations, std::shared_ptr<controller> _controller) override;
+};
 #endif // SOLVERS_H

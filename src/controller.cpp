@@ -308,19 +308,35 @@ camStruct controller::getInformationFromCamera() //TODO
         int i = 0;
         switch (j) {
         case 0 :
-            while(!(m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()+i])) i++;
+            while(!(m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()+i]))
+            {
+                m_parcours->m_mapMask[m_robot->m_position.y()][m_robot->m_position.x()+i] = 1;
+                i++;
+            }
             returnObj.right = std::pair<int,int>(i,m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()+i]);
             break;
         case 1 :
-            while((!(m_parcours->m_map[m_robot->m_position.y()-i][m_robot->m_position.x()]))||(m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()+i] == 2)) i++;
+            while((!(m_parcours->m_map[m_robot->m_position.y()-i][m_robot->m_position.x()]))||(m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()+i] == 2))
+            {
+                m_parcours->m_mapMask[m_robot->m_position.y()-i][m_robot->m_position.x()] = 1;
+                i++;
+            }
             returnObj.up = std::pair<int,int>(i,m_parcours->m_map[m_robot->m_position.y()-i][m_robot->m_position.x()]);
             break;
         case 2 :
-            while(!(m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()-i])) i++;
+            while(!(m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()-i]))
+            {
+                m_parcours->m_mapMask[m_robot->m_position.y()][m_robot->m_position.x()-i] = 1;
+                i++;
+            }
             returnObj.left = std::pair<int,int>(i,m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()-i]);
             break;
         case 3 :
-            while(!(m_parcours->m_map[m_robot->m_position.y()+i][m_robot->m_position.x()])) i++;
+            while(!(m_parcours->m_map[m_robot->m_position.y()+i][m_robot->m_position.x()]))
+            {
+                m_parcours->m_mapMask[m_robot->m_position.y()+i][m_robot->m_position.x()] = 1;
+                i++;
+            }
             returnObj.down = std::pair<int,int>(i,m_parcours->m_map[m_robot->m_position.y()+i][m_robot->m_position.x()]);
             break;
         default:

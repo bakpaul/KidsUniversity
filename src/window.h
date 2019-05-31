@@ -21,7 +21,7 @@ public:
 private:
 
     std::thread* m_SolverThread;
-    simpleSolver tempSolver;
+    std::shared_ptr<solver> m_tempSolver;
 };
 
 #endif

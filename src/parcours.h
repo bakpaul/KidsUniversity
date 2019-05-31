@@ -20,6 +20,7 @@ public:
     parcoursMap m_map;
     parcoursMap m_mapMask;
     std::vector<QBrush> m_brush;
+    QBrush m_undiscoveredBrush;
     std::vector<QPen> m_pen;
     QFont m_font;
     QPointF m_offsetFromCenter;

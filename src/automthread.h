@@ -11,7 +11,7 @@
 
 
 
-void automThread(Window* parent,std::shared_ptr<solver>);
+void automThread(Window* parent,std::shared_ptr<solver> );
 
 void envoisInstructions(instructions,Window*);
 

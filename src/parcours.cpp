@@ -48,6 +48,7 @@ parcours::parcours(std::string _fileName)
     m_brush.push_back(QBrush(Qt::white));
     m_brush.push_back(QBrush(Qt::white));
     m_brush.push_back(QBrush(QColor(250,90,70)));
+    m_undiscoveredBrush = QBrush(QColor(200,200,200));
     m_scale = 0.95;
     m_offsetFromCenter = QPointF(0,0);
     std::cout<<"Parcours : "<<std::endl;
@@ -92,6 +93,8 @@ void parcours::draw(QPainter *_painter, QPaintEvent *_event, long long _elapsed)
             _painter->setPen(m_pen[m_map[i][j]]);
             if(m_mapMask[i][j])
                 _painter->setBrush(m_brush[m_map[i][j]]);
+            else
+                _painter->setBrush(m_undiscoveredBrush);
             _painter->translate((j-(m_map[0].size())/2.0)*carreSize,(i-(m_map.size())/2.0)*carreSize );
             if(!j&&!i)
             {
