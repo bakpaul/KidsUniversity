@@ -18,3 +18,8 @@ void robot::draw(QPainter *_painter, QPaintEvent *_event, long long _elapsed)
 
 
 }
+
+void robot::reinit()
+{
+
+}

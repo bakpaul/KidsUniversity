@@ -12,6 +12,8 @@
 #include <QImage>
 
 
+
+
 class controller : public baseObj2Draw
 {
 public:
@@ -24,9 +26,15 @@ public:
     void findNextInstructions();
     int getValueFromInstruction(int _instr);
     void setNewPositionFromInstruction(int _instr);
+    void applyInformationsFromCamera(camStruct upDate);
+    void initInstructions();
+    std::pair<QPoint,int> getRobotPosition();
+    camStruct getInformationFromCamera();
     QString instrunction2char(int _i);
 
-private:
+    virtual void reinit();
+
+    private:
     std::shared_ptr<robot> m_robot;
     std::shared_ptr<parcours> m_parcours;
     int m_score;

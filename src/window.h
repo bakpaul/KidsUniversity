@@ -5,6 +5,8 @@
 #include "helper.h"
 
 #include <QWidget>
+#include <thread>
+#include "solvers.h"
 
 class Window : public QWidget
 {
@@ -15,8 +17,11 @@ public:
 
     void keyPressEvent(QKeyEvent *_event) override;
 
-private:
     Helper helper;
+private:
+
+    std::thread* m_SolverThread;
+    simpleSolver tempSolver;
 };
 
 #endif

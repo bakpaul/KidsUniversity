@@ -5,6 +5,10 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QTimer>
+#include <QKeyEvent>
+
+
+void automThread(Window*,std::shared_ptr<solver>);
 
 Window::Window(int _a, char** _c) : helper(_a,_c)
 {
@@ -17,7 +21,15 @@ Window::Window(int _a, char** _c) : helper(_a,_c)
 
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, openGL, &GLWidget::animate);
-    timer->start(20);
+    timer->start(100);
+
+    std::string autom = "a";
+    if(!strcmp(_c[_a-1],autom.c_str()))
+    {
+        m_SolverThread = new std::thread(automThread,this,std::shared_ptr<solver>(&tempSolver));
+        m_SolverThread->detach();
+
+    }
 }
 
 
@@ -53,6 +65,16 @@ void Window::keyPressEvent(QKeyEvent *_event)
         case(Qt::Key_Return) :
         {
             helper.m_controller->executeInstructions();
+            break;
+        }
+        case(Qt::Key_R) :
+        {
+            helper.reinit();
+            break;
+        }
+        case(Qt::Key_Space) :
+        {
+            helper.m_controller->initInstructions();
             break;
         }
         default:

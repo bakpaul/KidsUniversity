@@ -28,8 +28,10 @@ class Helper
 public:
     Helper(int, char**);
 
+    void precompute(long long elapsed);
     void paint(QPainter *painter, QPaintEvent *event, long long elapsed);
     config configuration(int,char**);
+    void reinit();
 
     std::shared_ptr<controller> m_controller;
 private:

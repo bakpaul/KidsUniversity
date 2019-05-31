@@ -113,6 +113,8 @@ void controller::initRobotPosition()
         }
     }
     m_robot->m_position = pos;
+    camStruct upDate = getInformationFromCamera();
+    applyInformationsFromCamera(upDate);
 }
 
 void controller::addInstructions(int _i)
@@ -128,14 +130,23 @@ void controller::addInstructions(int _i)
     }
 }
 
+void controller::initInstructions()
+{
+    while(m_instruction.size())
+    {
+        m_instruction.pop();
+    }
+}
+
 void controller::executeInstructions()
 {
     bool pending = false;
     bool Warn = false;
     int lastInstr=4;
+    int instr=4;
     while(m_instruction.size())
     {
-        int instr = m_instruction.front();
+        instr = m_instruction.front();
         m_instruction.pop();
         if(instr<4)
         {
@@ -162,18 +173,15 @@ void controller::executeInstructions()
                     if(Warn)
                     {
                         setNewPositionFromInstruction(instr);
-                        setNewPositionFromInstruction(instr);
                     }
                     else
                     {
                         m_score++;
                     }
                 }
-
                 break;
             default:
                 break;
-
             }
         }
         else
@@ -188,11 +196,46 @@ void controller::executeInstructions()
                 setNewPositionFromInstruction(lastInstr);
                 setNewPositionFromInstruction(lastInstr);
             }
+            else if(!pending)
+            {
+                Warn = true;
+            }
         }
-        lastInstr = instr;
+        if(m_instruction.size())
+            lastInstr = instr;
     }
     if(pending)
         m_score++;
+    if(Warn) //See if it works
+    {
+        if(lastInstr==4)
+        {
+            if(!getValueFromInstruction(instr))
+                setNewPositionFromInstruction(instr);
+            else
+                m_score++;
+        }
+        else
+        {
+            if(!getValueFromInstruction(lastInstr))
+                setNewPositionFromInstruction(lastInstr);
+            else
+                m_score++;
+        }
+    }
+
+    //    TODO
+    camStruct upDate = getInformationFromCamera();
+    applyInformationsFromCamera(upDate);
+
+}
+
+void controller::applyInformationsFromCamera(camStruct upDate)
+{
+    m_parcours->m_mapMask[m_robot->m_position.y()][m_robot->m_position.x()+upDate.right.first] = 1;
+    m_parcours->m_mapMask[m_robot->m_position.y()-upDate.up.first][m_robot->m_position.x()] = 1;
+    m_parcours->m_mapMask[m_robot->m_position.y()][m_robot->m_position.x()-upDate.left.first] = 1;
+    m_parcours->m_mapMask[m_robot->m_position.y()+upDate.down.first][m_robot->m_position.x()] = 1;
 }
 
 int controller::getValueFromInstruction(int _instr)
@@ -247,4 +290,49 @@ void controller::setNewPositionFromInstruction(int _instr)
     default:
         break;
     }
+}
+
+void controller::reinit()
+{
+    m_score = 0;
+    while(m_instruction.size())
+        m_instruction.pop();
+    initRobotPosition();
+}
+
+camStruct controller::getInformationFromCamera() //TODO
+{
+    camStruct returnObj;
+    for(unsigned j =0;j<4;j++)
+    {
+        int i = 0;
+        switch (j) {
+        case 0 :
+            while(!(m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()+i])) i++;
+            returnObj.right = std::pair<int,int>(i,m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()+i]);
+            break;
+        case 1 :
+            while((!(m_parcours->m_map[m_robot->m_position.y()-i][m_robot->m_position.x()]))||(m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()+i] == 2)) i++;
+            returnObj.up = std::pair<int,int>(i,m_parcours->m_map[m_robot->m_position.y()-i][m_robot->m_position.x()]);
+            break;
+        case 2 :
+            while(!(m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()-i])) i++;
+            returnObj.left = std::pair<int,int>(i,m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()-i]);
+            break;
+        case 3 :
+            while(!(m_parcours->m_map[m_robot->m_position.y()+i][m_robot->m_position.x()])) i++;
+            returnObj.down = std::pair<int,int>(i,m_parcours->m_map[m_robot->m_position.y()+i][m_robot->m_position.x()]);
+            break;
+        default:
+            break;
+        }
+    }
+    return returnObj;
+
+}
+
+std::pair<QPoint,int> controller::getRobotPosition()
+{
+    std::pair<QPoint,int> returnObj(m_robot->m_position,m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()]);
+    return returnObj;
 }

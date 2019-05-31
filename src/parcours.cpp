@@ -23,6 +23,16 @@ parcours::~parcours()
 parcours::parcours(std::string _fileName)
 {
     configuration(_fileName);
+    for(unsigned i=0;i<m_map.size();i++)
+    {
+        for(unsigned j=0; j<m_map[0].size();j++)
+        {
+            if((!j)||(!i)||(j==(m_map[0].size()-1))||(i==(m_map.size()-1)))
+            {
+                m_mapMask[i][j]=1;
+            }
+        }
+    }
     m_pen.push_back(QPen(Qt::black));
     m_pen.back().setWidth(3);
     m_pen.push_back(QPen(Qt::black));
@@ -45,6 +55,23 @@ parcours::parcours(std::string _fileName)
 
 }
 
+void parcours::reinit()
+{
+    for(unsigned i=0;i<m_map.size();i++)
+    {
+        for(unsigned j=0; j<m_map[0].size();j++)
+        {
+            if((!j)||(!i)||(j==(m_map[0].size()-1))||(i==(m_map.size()-1)))
+            {
+                m_mapMask[i][j]=1;
+            }
+            else
+            {
+                m_mapMask[i][j]=0;
+            }
+        }
+    }
+}
 
 void parcours::draw(QPainter *_painter, QPaintEvent *_event, long long _elapsed)
 {
@@ -63,7 +90,8 @@ void parcours::draw(QPainter *_painter, QPaintEvent *_event, long long _elapsed)
             m_font.setPixelSize(carreSize);
             _painter->setFont(m_font);
             _painter->setPen(m_pen[m_map[i][j]]);
-            _painter->setBrush(m_brush[m_map[i][j]]);
+            if(m_mapMask[i][j])
+                _painter->setBrush(m_brush[m_map[i][j]]);
             _painter->translate((j-(m_map[0].size())/2.0)*carreSize,(i-(m_map.size())/2.0)*carreSize );
             if(!j&&!i)
             {
@@ -97,7 +125,8 @@ void parcours::configuration(std::string _fileName)
         for(unsigned i=0;i<m_height;i++)
         {
             std::vector<int> temp;
-            temp.resize(m_width);
+            temp.resize(m_width,0);
+            m_mapMask.push_back(temp);
             for(unsigned j=0;j<m_width;j++)
             {
                 file >> temp[j];

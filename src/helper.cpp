@@ -90,3 +90,16 @@ void Helper::paint(QPainter *_painter, QPaintEvent *_event, long long _elapsed)
     }
 
 }
+
+void Helper::precompute(long long _elapsed)
+{
+
+}
+
+void Helper::reinit()
+{
+    for(unsigned i=0; i< m_obj2Draw.size(); i++)
+    {
+        m_obj2Draw[i]->reinit();
+    }
+}

@@ -14,16 +14,18 @@ public:
     parcours(std::string);
     virtual ~parcours();
     virtual void draw(QPainter *painter, QPaintEvent *event, long long elapsed);
+    virtual void reinit();
     void configuration(std::string);
 
     parcoursMap m_map;
+    parcoursMap m_mapMask;
     std::vector<QBrush> m_brush;
     std::vector<QPen> m_pen;
     QFont m_font;
     QPointF m_offsetFromCenter;
+    QPointF m_origin;
     double m_scale;
     int m_carreSize;
-    QPointF m_origin;
     int m_height;
     int m_width;
 };

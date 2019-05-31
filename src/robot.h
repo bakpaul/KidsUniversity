@@ -11,7 +11,7 @@ public:
     robot(std::string);
     virtual ~robot();
     virtual void draw(QPainter *painter, QPaintEvent *event, long long elapsed);
-
+    virtual void reinit();
 
     QPoint m_position;
     QImage m_image;

@@ -27,4 +27,5 @@ public:
     baseObj2Draw(){}
     virtual ~baseObj2Draw(){}
     virtual void draw(QPainter *painter, QPaintEvent *event, long long elapsed)=0;
+    virtual void reinit()=0;
 };
