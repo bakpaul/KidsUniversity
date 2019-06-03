@@ -19,9 +19,8 @@ The config file should contain some informations and should be formatted as foll
 * parcours path/to/parcoursConfig.txt
 
 The parcoursConfig file should be formated as follow:
-> labyrinthHeight labyrinthWidth
-> 1 1 1 ... 1 1 1
-> 1 0 0 ... 4 0 1
-> : : :     : : :
-> 1 0 4 ... 0 0 1
-> 1 1 1 ... 1 1 1
+labyrinthHeight labyrinthWidth
+\begin{matrix}
+    1 & 1\\
+    2 & 1
+\end{matrix}
