@@ -19,8 +19,24 @@ The config file should contain some informations and should be formatted as foll
 * parcours path/to/parcoursConfig.txt
 
 The parcoursConfig file should be formated as follow:
-labyrinthHeight labyrinthWidth
-\begin{matrix}
-    1 & 1\\
-    2 & 1
-\end{matrix}
+
+>labyrinthHeight labyrinthWidth  
+>1 1 1 ... 1 1 1  
+>1 0 0 ... 4 0 1  
+>: : : : : : : : : : : : :  
+>1 0 4 ... 0 0 1  
+>1 1 1 ... 1 1 1
+
+With :
+
+* 0 : Path
+* 1 : Wall
+* 2 : Departure
+* 3 : Finish
+* 4 : Obstacle
+
+The numbers on the border should only be ones (wall) and one 2 (a departure) and one 3 (a finish) which should be linked by a path. Moreover, if you want the automated solving to work, you shouldn't put a obstacle in front of a wall otherwise the robot will indefinitelly crash into it, such as :
+
+>1 1 1 3 1  
+>1 0 0 4 1  
+>1 2 1 1 1  
