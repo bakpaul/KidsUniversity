@@ -8,7 +8,6 @@
 
 std::ostream& operator<<(std::ostream& _out,config& _config)
 {
-    _out<<"Periode : "<<_config.period<<std::endl;
     _out<<"Robot configuration file : "<<_config.robotConfig<<std::endl;
     _out<<"Parcours configuration file : "<<_config.parcoursConfig<<std::endl;
     if(_config.objConfig.size())
@@ -56,8 +55,6 @@ config Helper::configuration(int _a,char** _b)
                     file>>returnObj.robotConfig;
                 else if(tempStr=="parcours")
                     file>>returnObj.parcoursConfig;
-                else if(tempStr=="period")
-                    file >> returnObj.period;
                 else if(tempStr=="controller")
                     file >> returnObj.controllerConfig;
                 else

@@ -20,7 +20,6 @@ typedef struct config
     std::string parcoursConfig;
     std::string controllerConfig;
     std::vector<std::string> objConfig;
-    double period;
 } config;
 
 class Helper
