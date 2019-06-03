@@ -29,4 +29,5 @@ public:
     int m_carreSize;
     int m_height;
     int m_width;
+    bool m_reveal;
 };

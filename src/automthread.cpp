@@ -2,16 +2,17 @@
 #include <thread>
 
 
-void automThread(Window* _parent, std::shared_ptr<solver> _solver)
+
+Aglorithme_de_resolution
 {
-    while(_parent->helper.m_controller->getRobotPosition().second != 3)
+    Tant_que(Le_robot_n_est_pas_arrive)
     {
-        std::this_thread::sleep_for(std::chrono::duration<int,std::milli>(1000));
-        camStruct informationCamera = _parent->helper.m_controller->getInformationFromCamera();
-        instructions prochainesInstructions = _solver->calculProchainesInstructions(informationCamera,_parent->helper.m_controller);
-        envoisInstructions(prochainesInstructions,_parent);
-        std::this_thread::sleep_for(std::chrono::duration<int,std::milli>(500));
-        executeInstructions(_parent);
+
+        Carte_obstacle = Camera->construireCarteObstacle();
+        Relais_transporte_les_informations_vers_le_controleur;
+        Carte_instruction = Controleur->calculProchainesInstructions(Informations_disponibles);
+        Relais_transporte_les_informations_vers_le_robot;
+        Robot_execute_instructions_et_correcteur_corrige;
     }
 }
 

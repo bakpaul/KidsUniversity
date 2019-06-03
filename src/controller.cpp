@@ -5,6 +5,7 @@ controller::controller(std::string _filename, std::shared_ptr<robot> _robot, std
 {
     m_score = 0;
     m_scoreIcon.load(_filename.c_str());
+    m_waitTime = 1400;
     //m_scoreIcon.load();
 }
 
@@ -351,4 +352,10 @@ std::pair<QPoint,int> controller::getRobotPosition()
 {
     std::pair<QPoint,int> returnObj(m_robot->m_position,m_parcours->m_map[m_robot->m_position.y()][m_robot->m_position.x()]);
     return returnObj;
+}
+
+
+void controller::toggleVisibility()
+{
+    m_parcours->m_reveal = !(m_parcours->m_reveal);
 }

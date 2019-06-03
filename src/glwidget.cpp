@@ -7,7 +7,7 @@
 GLWidget::GLWidget(Helper *_helper, QWidget *_parent)
     : QOpenGLWidget(_parent), helper(_helper)
 {
-    setMinimumSize(200,150);
+    setMinimumSize(800,600);
     setMaximumSize(2000,2000);
     m_begin = std::chrono::high_resolution_clock::now();
 

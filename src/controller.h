@@ -11,7 +11,7 @@
 #include <QBrush>
 #include <QImage>
 
-
+#define getInformationFromCamera construireCarteObstacle
 
 
 class controller : public baseObj2Draw
@@ -28,8 +28,12 @@ public:
     void setNewPositionFromInstruction(int _instr);
     void applyInformationsFromCamera(camStruct upDate);
     void initInstructions();
+    void toggleVisibility();
+    void incrWaitTime(){m_waitTime*=4.0/3.0;};
+    void decrWaitTime(){m_waitTime*=3.0/4.0;};
+    double getWaitTime(){return m_waitTime;};
     std::pair<QPoint,int> getRobotPosition();
-    camStruct getInformationFromCamera();
+    camStruct construireCarteObstacle();
     QString instrunction2char(int _i);
 
     virtual void reinit();
@@ -38,6 +42,7 @@ public:
     std::shared_ptr<robot> m_robot;
     std::shared_ptr<parcours> m_parcours;
     int m_score;
+    double m_waitTime;
     std::queue<int> m_instruction;
     QImage m_scoreIcon;
 };

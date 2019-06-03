@@ -1,0 +1,4 @@
+period 2
+robot /home/paul/dev/Perso/KidsUniversity/ConfigFiles/Config3/WALLE.png
+controller /home/paul/dev/Perso/KidsUniversity/ConfigFiles/Config3/pansement.png
+parcours /home/paul/dev/Perso/KidsUniversity/ConfigFiles/Config3/parcoursConfig.txt

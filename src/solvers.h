@@ -5,11 +5,12 @@
 #include <QtEvents>
 #include <QKeyEvent>
 #include "controller.h"
+#include "graph.h"
 
 
 typedef std::queue<QKeyEvent> instructions;
 
-instructions getInstructionFromType(int type,int direction);
+instructions getInstructionFromType(std::pair<int,int> type,int direction);
 
 class solver
 {
@@ -34,5 +35,7 @@ class graphSolver : public solver
 public:
     graphSolver(){}
     virtual instructions calculProchainesInstructions(camStruct _camInformations, std::shared_ptr<controller> _controller) override;
+
+    Seed m_graph;
 };
 #endif // SOLVERS_H

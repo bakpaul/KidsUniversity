@@ -78,6 +78,21 @@ void Window::keyPressEvent(QKeyEvent *_event)
             helper.m_controller->initInstructions();
             break;
         }
+        case(Qt::Key_Control) :
+        {
+            helper.m_controller->toggleVisibility();
+            break;
+        }
+        case(Qt::Key_Plus) :
+        {
+            helper.m_controller->decrWaitTime();
+            break;
+        }
+        case(Qt::Key_Minus) :
+        {
+            helper.m_controller->incrWaitTime();
+            break;
+        }
         default:
         {
             break;
